@@ -14,10 +14,10 @@ class MostPopularTVShowRepository {
     }
 
     fun getMostPopularShows (page: Int): LiveData<MostPopularShow> {
-        var data: MutableLiveData<MostPopularShow>
+        var data: MutableLiveData<MostPopularShow> = MutableLiveData()
         tvShowApiService.getMostPopularTVShows(page).enqueue(object : Callback<MostPopularShow> {
             override fun onFailure(call: Call<MostPopularShow>, t: Throwable) {
-
+                data.value = null
             }
 
             override fun onResponse(call: Call<MostPopularShow>, response: Response<MostPopularShow>) {
