@@ -1,6 +1,7 @@
 package com.chienducng.tvshow.response
 
 
+import com.chienducng.tvshow.models.TvShow
 import com.google.gson.annotations.SerializedName
 
 data class MostPopularShow(

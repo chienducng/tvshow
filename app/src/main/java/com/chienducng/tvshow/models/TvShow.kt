@@ -1,4 +1,4 @@
-package com.chienducng.tvshow.response
+package com.chienducng.tvshow.models
 
 
 import com.google.gson.annotations.SerializedName
