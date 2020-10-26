@@ -1,6 +1,7 @@
 package com.chienducng.tvshow.network
 
-import com.chienducng.tvshow.response.MostPopularShow
+import com.chienducng.tvshow.response.MostPopularShowResponse
+import com.chienducng.tvshow.response.TVShowDetailsResponse
 import com.chienducng.tvshow.utils.Constants.Companion.BASE_URL
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -11,7 +12,10 @@ import retrofit2.http.Query
 interface TvShowApiService {
 
     @GET("most-popular")
-    fun getMostPopularTVShows(@Query("page") page: Int) : Call<MostPopularShow>
+    fun getMostPopularTVShows(@Query("page") page: Int) : Call<MostPopularShowResponse>
+
+    @GET("show-details")
+    fun getTVShowDetails(@Query("q") tvShowId: String) : Call<TVShowDetailsResponse>
 
 
     companion object {

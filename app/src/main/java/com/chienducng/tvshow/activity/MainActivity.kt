@@ -1,5 +1,6 @@
 package com.chienducng.tvshow.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,16 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chienducng.tvshow.R
 import com.chienducng.tvshow.adapters.TVShowsAdapter
 import com.chienducng.tvshow.databinding.ActivityMainBinding
-import com.chienducng.tvshow.models.TvShow
+import com.chienducng.tvshow.listeners.TVShowsListener
+import com.chienducng.tvshow.models.TVShow
 import com.chienducng.tvshow.viewmodes.MostPopularTVShowViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TVShowsListener {
     private val TAG: String = "MainActivity"
     private lateinit var mostPopularTVShowViewModel : MostPopularTVShowViewModel
     private lateinit var activityMainBinding: ActivityMainBinding
-    private var tvShows : ArrayList<TvShow> = ArrayList()
+    private var TVShows : ArrayList<TVShow> = ArrayList()
     private val tvShowsAdapter by lazy {
-        TVShowsAdapter(tvShows)
+        TVShowsAdapter(TVShows, this)
     }
     private var currentPage = 1;
     private var totalAvailablePage = 1;
@@ -56,9 +58,9 @@ class MainActivity : AppCompatActivity() {
             if (it != null) {
                 totalAvailablePage = it.pages
                 Log.i(TAG, "total: $totalAvailablePage")
-                val oldCount = tvShows.size
-                tvShows.addAll(it.tvShows)
-                tvShowsAdapter.notifyItemRangeInserted(oldCount, tvShows.size)
+                val oldCount = TVShows.size
+                TVShows.addAll(it.TVShows)
+                tvShowsAdapter.notifyItemRangeInserted(oldCount, TVShows.size)
             }
         })
     }
@@ -69,5 +71,16 @@ class MainActivity : AppCompatActivity() {
         } else {
             activityMainBinding.isLoadingMore = !activityMainBinding.isLoadingMore
         }
+    }
+
+    override fun onTVShowsClicked(tvShow: TVShow) {
+        val intent = Intent(applicationContext, TVShowDetailsActivity::class.java)
+        intent.putExtra("id", tvShow.id)
+        intent.putExtra("name", tvShow.name)
+        intent.putExtra("startDate", tvShow.startDate)
+        intent.putExtra("country", tvShow.country)
+        intent.putExtra("network", tvShow.network)
+        intent.putExtra("status", tvShow.status)
+        startActivity(intent)
     }
 }

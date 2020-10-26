@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chienducng.tvshow.databinding.ItemContainerTvShowBinding
-import com.chienducng.tvshow.models.TvShow
+import com.chienducng.tvshow.listeners.TVShowsListener
+import com.chienducng.tvshow.models.TVShow
 
-class TVShowsAdapter(private val tvShows: List<TvShow>) :
+class TVShowsAdapter(private val tvShows: List<TVShow>, private var tvShowsListener : TVShowsListener) :
     RecyclerView.Adapter<TVShowsAdapter.TVShowViewHolder>() {
     class TVShowViewHolder (private val binding: ItemContainerTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: TvShow) {
+        fun bind(item: TVShow, listener: TVShowsListener) {
             with(binding) {
                 tvShow = item
                 executePendingBindings()
+                binding.itemClicked = listener
             }
         }
 
@@ -31,7 +33,7 @@ class TVShowsAdapter(private val tvShows: List<TvShow>) :
     }
 
     override fun onBindViewHolder(holder: TVShowViewHolder, position: Int) {
-        holder.bind(tvShows[position])
+        holder.bind(tvShows[position], tvShowsListener)
     }
 
     override fun getItemCount(): Int {

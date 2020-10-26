@@ -5,13 +5,18 @@
     <data>
         <variable
             name="tvShow"
-            type="com.chienducng.tvshow.models.TvShow" />
+            type="com.chienducng.tvshow.models.TVShow" />
+
+        <variable
+            name="itemClicked"
+            type="com.chienducng.tvshow.listeners.TVShowsListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_4sdp">
+        android:padding="@dimen/_4sdp"
+        android:onClick="@{() -> itemClicked.onTVShowsClicked(tvShow)}">
 
         <View
             android:id="@+id/viewSupporter"

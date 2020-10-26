@@ -3,7 +3,7 @@ package com.chienducng.tvshow.models
 
 import com.google.gson.annotations.SerializedName
 
-data class TvShow(
+data class TVShow(
     @SerializedName("country")
     val country: String,
     @SerializedName("end_date")
